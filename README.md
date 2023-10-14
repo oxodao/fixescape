@@ -10,7 +10,7 @@ This mod adds a second escape key that is re-bindable on any key you want. So yo
 
 ## Versions
 
-This branch produce a jar compatible for 1.19 up to 1.20.1
+This branch produce a jar compatible for 1.20.2 and up (maybe)
 
 
 ## Credits
