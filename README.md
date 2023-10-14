@@ -8,6 +8,10 @@ For most keybinds its ok, you can remap them ingame. But you can't remap escape.
 
 This mod adds a second escape key that is re-bindable on any key you want. So you can finally play the game again even if you're using `caps:swapescape`.
 
+## Versions
+
+This branch produce a jar compatible for 1.19 up to 1.20.1
+
 
 ## Credits
 
