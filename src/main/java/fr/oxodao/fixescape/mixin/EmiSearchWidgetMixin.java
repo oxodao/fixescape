@@ -23,8 +23,6 @@ public class EmiSearchWidgetMixin {
 
         ((EditBox) (Object) this).setFocused(false);
         ClientEventHandler.omitNextEscape();
-
-        cir.setReturnValue(true);
     }
 
 }
