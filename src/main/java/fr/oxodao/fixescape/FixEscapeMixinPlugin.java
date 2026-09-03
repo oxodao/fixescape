@@ -2,7 +2,7 @@ package fr.oxodao.fixescape;
 
 import java.util.List;
 import java.util.Set;
-import net.neoforged.fml.loading.FMLLoader;
+import java.lang.reflect.Modifier;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -32,20 +32,50 @@ public class FixEscapeMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        var loadingModList = FMLLoader.getLoadingModList();
         var mixins = new java.util.ArrayList<String>();
+        mixins.add(hasKeyEvent() ? "CreativeSearchMixin" : "CreativeSearchLegacyMixin");
 
-        if (loadingModList.getModFileById("ae2") != null) {
+        if (isModLoaded("ae2")) {
             mixins.add("AETextFieldMixin");
         }
-        if (loadingModList.getModFileById("emi") != null) {
+        if (isModLoaded("emi")) {
             mixins.add("EmiSearchWidgetMixin");
         }
-        if (loadingModList.getModFileById("refinedstorage") != null) {
+        if (isModLoaded("refinedstorage")) {
             mixins.add("RefinedStorageSearchFieldMixin");
         }
 
         return mixins;
+    }
+
+    private static boolean hasKeyEvent() {
+        try {
+            Class.forName("net.minecraft.client.input.KeyEvent", false, FixEscapeMixinPlugin.class.getClassLoader());
+            return true;
+        } catch (ClassNotFoundException ignored) {
+            return false;
+        }
+    }
+
+    private static boolean isModLoaded(String modId) {
+        try {
+            Class<?> loaderClass = Class.forName("net.neoforged.fml.loading.FMLLoader");
+            Object loader = null;
+            try {
+                loader = loaderClass.getMethod("get").invoke(null);
+            } catch (NoSuchMethodException ignored) {
+                try {
+                    loader = loaderClass.getMethod("getCurrent").invoke(null);
+                } catch (NoSuchMethodException ignoredAgain) {
+                }
+            }
+            var getLoadingModList = loaderClass.getMethod("getLoadingModList");
+            Object loadingModList = getLoadingModList.invoke(
+                    Modifier.isStatic(getLoadingModList.getModifiers()) ? null : loader);
+            return loadingModList.getClass().getMethod("getModFileById", String.class).invoke(loadingModList, modId) != null;
+        } catch (ReflectiveOperationException exception) {
+            throw new IllegalStateException("Unable to query loaded mods", exception);
+        }
     }
 
     @Override

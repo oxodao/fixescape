@@ -4,7 +4,7 @@
   "plugin": "fr.oxodao.fixescape.FixEscapeMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
-  "client": ["CreativeSearchMixin"],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
