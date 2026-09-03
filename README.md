@@ -12,11 +12,11 @@ This mod adds a second escape key that is re-bindable on any key you want. So yo
 
 NOTE: Starting 1.21 this mod targets NeoForge. I'm dropping Forge support as most mod seems to do the same.
 
-This branch currently targets Minecraft 1.21.10.
+This branch currently targets Minecraft 1.21.11.
 
 ## Development compatibility setup
 
-The 1.21.10 development client is tested without AE2, Refined Storage, or EMI:
+The 1.21.11 development client is tested without AE2, Refined Storage, or EMI:
 there are no compatible NeoForge releases of these mods for this Minecraft
 version.
 
