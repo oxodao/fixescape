@@ -13,6 +13,7 @@ public class FixEscape
 
     public FixEscape(IEventBus modEventBus, ModContainer modContainer)
     {
+        modEventBus.addListener(ClientModEvents::registerKeybinds);
         NeoForge.EVENT_BUS.register(new ClientEventHandler());
     }
 }
