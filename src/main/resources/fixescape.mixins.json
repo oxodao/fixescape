@@ -1,9 +1,10 @@
 {
   "required": true,
   "package": "fr.oxodao.fixescape.mixin",
+  "plugin": "fr.oxodao.fixescape.FixEscapeMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
-  "client": ["CreativeSearchMixin", "EmiSearchWidgetMixin", "AETextFieldMixin"],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

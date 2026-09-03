@@ -9,22 +9,18 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Mixin to unfocus EMI search bar when pressing the new escape key.
- */
 @Pseudo
-@Mixin(targets = "dev.emi.emi.screen.widget.EmiSearchWidget")
-public class EmiSearchWidgetMixin {
+@Mixin(targets = "com.refinedmods.refinedstorage.common.support.widget.SearchFieldWidget")
+public class RefinedStorageSearchFieldMixin {
 
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     public void onKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-        if (!((EditBox) (Object) this).isFocused() ||
-                keyCode != ClientModEvents.NEW_ESCAPE.get().getKey().getValue()) {
+        if (!((EditBox) (Object) this).isFocused()
+                || keyCode != ClientModEvents.NEW_ESCAPE.get().getKey().getValue()) {
             return;
         }
 
         ClientEventHandler.unfocus((EditBox) (Object) this);
         cir.setReturnValue(true);
     }
-
 }
