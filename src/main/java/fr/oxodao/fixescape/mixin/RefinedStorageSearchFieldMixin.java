@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "com.refinedmods.refinedstorage.common.support.widget.SearchFieldWidget")
 public class RefinedStorageSearchFieldMixin {
 
-    @Inject(method = "keyPressed", at = @At("HEAD"))
+    @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     public void onKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
         if (!((EditBox) (Object) this).isFocused()
                 || keyCode != ClientModEvents.NEW_ESCAPE.get().getKey().getValue()) {
             return;
         }
 
-        ((EditBox) (Object) this).setFocused(false);
-        ClientEventHandler.omitNextEscape();
+        ClientEventHandler.unfocus((EditBox) (Object) this);
+        cir.setReturnValue(true);
     }
 }

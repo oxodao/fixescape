@@ -19,8 +19,8 @@ group = mod_group_id
 repositories {
     mavenLocal()
     maven {
-        name = 'TerraformersMC'
-        url = 'https://maven.terraformersmc.com/releases/'
+        name = 'MinecraftLibraries'
+        url = 'https://libraries.minecraft.net/'
     }
 }
 
@@ -116,11 +116,6 @@ configurations {
 }
 
 dependencies {
-    // Optional mods used only by the development client to validate compatibility.
-    // Do not turn these into implementation dependencies: FixEscape must stay usable
-    // without any of them installed.
-    localRuntime "dev.emi:emi-neoforge:${emi_version}"
-
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

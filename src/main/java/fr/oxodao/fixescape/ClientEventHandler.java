@@ -2,6 +2,7 @@ package fr.oxodao.fixescape;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.EditBox;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
@@ -11,6 +12,16 @@ public class ClientEventHandler {
 
     public static void omitNextEscape() {
         ClientEventHandler.IS_KEY_PRESSED = true;
+    }
+
+    public static void unfocus(EditBox textField) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.screen != null && mc.screen.getFocused() == textField) {
+            mc.screen.setFocused(null);
+        }
+
+        textField.setFocused(false);
+        omitNextEscape();
     }
 
     @SubscribeEvent
