@@ -12,7 +12,28 @@ This mod adds a second escape key that is re-bindable on any key you want. So yo
 
 NOTE: Starting 1.21 this mod targets NeoForge. I'm dropping Forge support as most mod seems to do the same.
 
-This branch produce a jar compatible for 1.21 and 1.21.1
+This branch produces a jar compatible with Minecraft 1.21.1.
+
+## Development compatibility setup
+
+The development client can be started with AE2, Refined Storage, and EMI to
+manually test the alternate escape key. After cloning the repository, download
+the runtime-only mods once:
+
+```sh
+make setup-mods
+```
+
+This downloads AE2 19.2.17, its required GuideME dependency, and Refined
+Storage 2.0.9 into `run/mods`. The directory is ignored by Git, so none of
+these JARs are packaged or published with FixEscape. EMI 1.1.24+1.21.1 is
+resolved by Gradle as a `localRuntime` dependency and is also not published.
+
+Then launch the client with:
+
+```sh
+./gradlew runClient
+```
 
 
 ## Credits

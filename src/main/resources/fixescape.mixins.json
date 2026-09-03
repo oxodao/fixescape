@@ -3,7 +3,7 @@
   "package": "fr.oxodao.fixescape.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
-  "client": ["CreativeSearchMixin", "EmiSearchWidgetMixin", "AETextFieldMixin"],
+  "client": ["CreativeSearchMixin", "EmiSearchWidgetMixin", "AETextFieldMixin", "RefinedStorageSearchFieldMixin"],
   "injectors": {
     "defaultRequire": 1
   }
