@@ -9,6 +9,7 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 
 public class ClientEventHandler {
     private static boolean IS_KEY_PRESSED = false;
+    private static boolean OMIT_NEXT_CHARACTER = false;
 
     public static void omitNextEscape() {
         ClientEventHandler.IS_KEY_PRESSED = true;
@@ -21,6 +22,7 @@ public class ClientEventHandler {
         }
 
         textField.setFocused(false);
+        ClientEventHandler.OMIT_NEXT_CHARACTER = true;
         omitNextEscape();
     }
 
@@ -45,6 +47,17 @@ public class ClientEventHandler {
     @SubscribeEvent
     public void onScreenKeyReleased(ScreenEvent.KeyReleased.Post evt) {
         ClientEventHandler.IS_KEY_PRESSED = false;
+        ClientEventHandler.OMIT_NEXT_CHARACTER = false;
+    }
+
+    @SubscribeEvent
+    public void onScreenCharacterTyped(ScreenEvent.CharacterTyped.Pre evt) {
+        if (!ClientEventHandler.OMIT_NEXT_CHARACTER) {
+            return;
+        }
+
+        ClientEventHandler.OMIT_NEXT_CHARACTER = false;
+        evt.setCanceled(true);
     }
 
     @SubscribeEvent

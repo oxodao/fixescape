@@ -11,13 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CreativeModeInventoryScreen.class)
 public class CreativeSearchMixin {
-    @Inject(method = "keyPressed", at = @At("HEAD"))
+    @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     public void onKeyPressed(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
         if (keyEvent.key() == ClientModEvents.NEW_ESCAPE.get().getKey().getValue()) {
             Minecraft mc = Minecraft.getInstance();
             if (mc.screen != null && mc.screen.shouldCloseOnEsc()) {
                 mc.screen.onClose();
             }
+            cir.setReturnValue(true);
         }
     }
 }

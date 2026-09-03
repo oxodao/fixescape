@@ -10,15 +10,22 @@ This mod adds a second escape key that is re-bindable on any key you want. So yo
 
 ## Versions
 
-NOTE: Starting 1.21 this mod targets NeoForge. I'm dropping Forge support as most mod seems to do the same.
+FixEscape targets NeoForge.
 
-This branch currently targets Minecraft 1.21.11.
+This branch targets Minecraft 26.1.2.
 
 ## Development compatibility setup
 
-The 1.21.11 development client is tested without AE2, Refined Storage, or EMI:
-there are no compatible NeoForge releases of these mods for this Minecraft
-version.
+Install the optional integration mods in the development instance with:
+
+```
+make setup-mods
+```
+
+This clears `run/mods` first, then installs AE2 and its GuideME dependency,
+Refined Storage, and EMI. AE2/GuideME are beta builds; EMI is supplied by the
+[link-fgfgui fork](https://github.com/link-fgfgui/emi), which provides a
+NeoForge build for Minecraft 26.1.2.
 
 ## Credits
 
