@@ -12,7 +12,7 @@ This mod adds a second escape key that is re-bindable on any key you want. So yo
 
 FixEscape targets NeoForge.
 
-This branch targets Minecraft 26.1.2.
+This branch targets Minecraft 26.2 and remains compatible with Minecraft 26.1.2.
 
 ## Development compatibility setup
 
@@ -22,10 +22,10 @@ Install the optional integration mods in the development instance with:
 make setup-mods
 ```
 
-This clears `run/mods` first, then installs AE2 and its GuideME dependency,
-Refined Storage, and EMI. AE2/GuideME are beta builds; EMI is supplied by the
-[link-fgfgui fork](https://github.com/link-fgfgui/emi), which provides a
-NeoForge build for Minecraft 26.1.2.
+This clears `run/mods` first, then installs every available integration mod.
+At present, only EMI has a NeoForge build for 26.2; it is supplied by the
+[link-fgfgui fork](https://github.com/link-fgfgui/emi). AE2, GuideME and
+Refined Storage will be restored here when they publish compatible builds.
 
 ## Credits
 

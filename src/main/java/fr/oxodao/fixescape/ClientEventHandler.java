@@ -3,6 +3,7 @@ package fr.oxodao.fixescape;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.Screen;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
@@ -17,8 +18,9 @@ public class ClientEventHandler {
 
     public static void unfocus(EditBox textField) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null && mc.screen.getFocused() == textField) {
-            mc.screen.setFocused(null);
+        Screen screen = getCurrentScreen(mc);
+        if (screen != null && screen.getFocused() == textField) {
+            screen.setFocused(null);
         }
 
         textField.setFocused(false);
@@ -39,8 +41,9 @@ public class ClientEventHandler {
         ClientEventHandler.IS_KEY_PRESSED = true;
 
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null && mc.screen.shouldCloseOnEsc()) {
-            mc.screen.onClose();
+        Screen screen = getCurrentScreen(mc);
+        if (screen != null && screen.shouldCloseOnEsc()) {
+            screen.onClose();
         }
     }
 
@@ -75,9 +78,27 @@ public class ClientEventHandler {
             ClientEventHandler.IS_KEY_PRESSED = true;
 
             Minecraft mc = Minecraft.getInstance();
-            if (mc.screen == null) {
+            if (getCurrentScreen(mc) == null) {
                 mc.pauseGame(false);
             }
+        }
+    }
+
+    public static Screen getCurrentScreen() {
+        return getCurrentScreen(Minecraft.getInstance());
+    }
+
+    private static Screen getCurrentScreen(Minecraft mc) {
+        try {
+            return (Screen) Minecraft.class.getField("screen").get(mc);
+        } catch (NoSuchFieldException ignored) {
+            try {
+                return (Screen) mc.gui.getClass().getMethod("screen").invoke(mc.gui);
+            } catch (ReflectiveOperationException exception) {
+                throw new IllegalStateException("Unable to access the current screen", exception);
+            }
+        } catch (IllegalAccessException exception) {
+            throw new IllegalStateException("Unable to access the current screen", exception);
         }
     }
 }

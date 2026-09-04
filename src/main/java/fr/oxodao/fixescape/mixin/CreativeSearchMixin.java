@@ -1,7 +1,7 @@
 package fr.oxodao.fixescape.mixin;
 
 import fr.oxodao.fixescape.ClientModEvents;
-import net.minecraft.client.Minecraft;
+import fr.oxodao.fixescape.ClientEventHandler;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,9 +14,9 @@ public class CreativeSearchMixin {
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     public void onKeyPressed(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
         if (keyEvent.key() == ClientModEvents.NEW_ESCAPE.get().getKey().getValue()) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.screen != null && mc.screen.shouldCloseOnEsc()) {
-                mc.screen.onClose();
+            var screen = ClientEventHandler.getCurrentScreen();
+            if (screen != null && screen.shouldCloseOnEsc()) {
+                screen.onClose();
             }
             cir.setReturnValue(true);
         }
